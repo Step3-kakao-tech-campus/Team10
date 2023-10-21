@@ -1,4 +1,4 @@
-const Photo = ({ className, src, alt }) => {
+const Image = ({ className, src, alt }) => {
   return (
     <picture className={className}>
       <source srcSet={src} />
@@ -7,4 +7,4 @@ const Photo = ({ className, src, alt }) => {
   );
 };
 
-export default Photo;
+export default Image;

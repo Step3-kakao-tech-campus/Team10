@@ -5,13 +5,13 @@ const Badge = ({ label }) => {
 
   const getType = (type) => {
     const commonStyle =
-      "align-middle px-3.5 py-1 rounded-full border leading-normal text-center";
+      "align-middle px-3.5 py-1 border rounded-full text-center";
 
     switch (type) {
       case "unclicked":
-        return `${commonStyle} border-gray-300 bg-white text-black`;
+        return `${commonStyle} bg-white text-black border-gray-300`;
       case "onclicked":
-        return `${commonStyle} border-sky-500 bg-sky-500 text-white`;
+        return `${commonStyle} bg-primary text-white border-primary`;
       default:
         return "";
     }
@@ -23,7 +23,7 @@ const Badge = ({ label }) => {
 
   return (
     <div className="field">
-      <label className={`${getType(isChecked ? "onclicked" : "unclicked")}`}>
+      <label className={getType(isChecked ? "onclicked" : "unclicked")}>
         <input
           type="checkbox"
           checked={isChecked}

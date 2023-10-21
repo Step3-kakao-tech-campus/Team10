@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Button } from "../atoms/Button";
+import Button from "../atoms/Button";
 import "./FileUploader.css";
 
 const FileUploader = () => {
@@ -8,9 +8,9 @@ const FileUploader = () => {
 
   const saveImage = (e) => {
     e.preventDefault();
-    const tmpFileList = [];
     const files = e.target.files;
     if (files) {
+      const tmpFileList = [];
       for (let i = 0; i < files.length; i++) {
         const file = files[i];
         const preview_URL = URL.createObjectURL(file);
@@ -23,8 +23,8 @@ const FileUploader = () => {
           });
         }
       }
+      setFileList([...tmpFileList, ...fileList]);
     }
-    setFileList([...tmpFileList, ...fileList]);
   };
 
   const deleteImage = (index) => {
@@ -42,38 +42,35 @@ const FileUploader = () => {
   }, []);
 
   return (
-    <div className="uploader-wrapper">
-      <div className="flex flex-col mt-2">
-        <div className="flex flex-item gap-[220px]">
-          <label className="text-start text-gray-700 text-base">매장사진</label>
-          <Button
-            type="addPhoto"
-            label="+ 추가"
-            onClick={() => inputRef.current.click()}>
-            추가
-          </Button>
-        </div>
-        <div className="file-container overflow-x-auto flex gap-4">
-          {fileList?.map((item, index) => (
-            <div className="file-wrapper" key={index}>
-              {item.type === "image" ? (
-                <img
-                  src={item.preview_URL}
-                  alt={`Preview of ${index}`}
-                  className="square-image"
-                />
-              ) : null}
-              <Button
-                type="deletePhoto"
-                className="delete-button"
-                label="X"
-                onClick={() => {
-                  deleteImage(index);
-                }}></Button>
-            </div>
-          ))}
-        </div>
+    <div className="w-96">
+      <div className="flex justify-between">
+        <label className="text-gray-700">매장사진</label>
+        <Button style="addPhoto" onClick={() => inputRef.current.click()}>
+          + 추가
+        </Button>
       </div>
+      <div className="flex gap-4 file-container">
+        {fileList?.map((item, index) => (
+          <div className="file-wrapper" key={index}>
+            {item.type === "image" ? (
+              <img
+                src={item.preview_URL}
+                alt={`Preview of ${index}`}
+                className="square-image"
+              />
+            ) : null}
+            <Button
+              style="deletePhoto"
+              className="delete-button"
+              onClick={() => {
+                deleteImage(index);
+              }}>
+              ×
+            </Button>
+          </div>
+        ))}
+      </div>
+
       <input
         type="file"
         multiple={true}

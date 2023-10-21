@@ -1,19 +1,17 @@
 import React from "react";
 
-  const Checkbox = ({ checked, onChange, label, id }) => {
+const Checkbox = ({ checked, onChange, disabled, children }) => {
   return (
-    <div className="flex items-center pl-2">
+    <label className="text-gray-700 select-none">
       <input
         type="checkbox"
+        className="mr-2"
+        disabled={disabled}
         checked={checked}
-        onChange={onChange}
-        id={id}
-        className="mr-1"
+        onChange={({ target: { checked } }) => onChange(checked)}
       />
-      <label htmlFor={id} className="text-gray-500 text-base">
-        {label}
-      </label>
-    </div>
+      {children}
+    </label>
   );
 };
 

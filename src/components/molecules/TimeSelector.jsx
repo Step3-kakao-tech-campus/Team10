@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
-import { TextInput } from "../atoms/TextInput";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import TextInput from "../atoms/TextInput";
 import Checkbox from "../atoms/CheckBox";
 
 const TimeSelector = ({ startTime, setStartTime, endTime, setEndTime }) => {
@@ -27,21 +27,23 @@ const TimeSelector = ({ startTime, setStartTime, endTime, setEndTime }) => {
           label="24시간 운영"
         />
       </div>
-      <div className={`flex items-center pl-2 ${is24Hour ? 'pointer-events-none' : ''}`}>
+      <div
+        className={`flex items-center pl-2 ${
+          is24Hour ? "pointer-events-none" : ""
+        }`}>
         {!is24Hour ? (
           <>
             <div className="flex flex-col">
               <DatePicker
                 dateFormat="h:mm aa"
-                shouldCloseOnSelect 
+                shouldCloseOnSelect
                 selected={startTime}
                 onChange={(date) => setStartTime(date)}
                 showTimeSelect
                 showTimeSelectOnly
                 timeIntervals={30}
                 timeCaption="시작 시간"
-                className="w-[142px] h-14 px-4 rounded-xl border border-gray-300 bg-gray-100"
-                placeholderText="시작 시간"
+                className="w-32 px-4 bg-gray-100 border border-gray-300 h-14 rounded-xl"
                 disabled={is24Hour}
               />
             </div>
@@ -49,7 +51,7 @@ const TimeSelector = ({ startTime, setStartTime, endTime, setEndTime }) => {
             <div className="flex flex-col">
               <DatePicker
                 dateFormat="h:mm aa"
-                shouldCloseOnSelect 
+                shouldCloseOnSelect
                 selected={endTime}
                 onChange={(date) => setEndTime(date)}
                 showTimeSelect
@@ -63,12 +65,10 @@ const TimeSelector = ({ startTime, setStartTime, endTime, setEndTime }) => {
             </div>
           </>
         ) : (
-          <TextInput 
-            name="registerform-time" 
-            placeholder="24시간 운영" 
-            readOnly
-          ></TextInput>
-          
+          <TextInput
+            name="registerform-time"
+            placeholder="24시간 운영"
+            readOnly></TextInput>
         )}
       </div>
     </div>
