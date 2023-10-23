@@ -1,18 +1,11 @@
-import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Image from "./Image";
 import Logo from "/logo.svg";
 import Button from "./Button";
 
 const GNB = () => {
-  const [currentPage, setCurrentPage] = useState("/");
   const location = useLocation();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    setCurrentPage(location.pathname);
-    console.log(currentPage);
-  }, [location]);
 
   const menus = [
     {
@@ -39,7 +32,7 @@ const GNB = () => {
                 <Link key={index} to={menu.path}>
                   <li
                     className={`${
-                      currentPage === menu.path
+                      location.pathname === menu.path
                         ? "border-b-8 border-primary text-primary"
                         : ""
                     } text-xl p-8`}>

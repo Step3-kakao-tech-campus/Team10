@@ -2,8 +2,30 @@ import TextInput from "../atoms/TextInput";
 import Button from "../atoms/Button";
 import Box from "../atoms/Box";
 import { useForm } from "react-hook-form";
+import { useMutation } from "@tanstack/react-query";
+import { signup } from "../../apis/user";
+import { useNavigate } from "react-router-dom";
 
+/**
+ * SignupForm 회원가입 폼
+ *
+ * 닉네임, 이메일, 비밀번호, 비밀번호 확인, 전화번호 입력창, 회원가입 버튼을 담고 있는 박스입니다.
+ *
+ * @todo 닉네임, 이메일 중복체크 API 추가 (백엔드와 협의)
+ * @todo 회원가입에 실패했을 때 에러처리 (form onSubmit 부분)
+ * @todo 닉네임 -> 이름으로 수정
+ * @todo 회원가입 시 즉시 로그인되어 메인 페이지로 이동하는데, 이 부분에서 localStorage에 토큰을 저장하는 로직 필요
+ * @todo isSubmitting 상태에 따라 회원가입 버튼 스타일 변경 필요
+ */
 const SignupForm = () => {
+  const mutation = useMutation({
+    mutationFn: (data) => {
+      signup(data);
+    },
+  });
+
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -48,8 +70,15 @@ const SignupForm = () => {
         noValidate
         className="grid gap-4"
         onSubmit={handleSubmit(async (data) => {
-          await new Promise((r) => setTimeout(r, 1000));
-          alert(JSON.stringify(data));
+          mutation.mutate(data, {
+            onSuccess: () => {
+              navigate("/");
+            },
+            onError: (error) => {
+              // TODO: 회원가입에 실패했을 때 에러 처리
+              console.log(error);
+            },
+          });
         })}>
         <div className="flex gap-4 w-96">
           <TextInput

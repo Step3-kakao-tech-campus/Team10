@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const Badge = ({ label }) => {
+const Badge = ({ onChange, children, props }) => {
   const [isChecked, setIsChecked] = useState(false);
 
   const getType = (type) => {
@@ -22,17 +22,19 @@ const Badge = ({ label }) => {
   };
 
   return (
-    <div className="field">
-      <label className={getType(isChecked ? "onclicked" : "unclicked")}>
-        <input
-          type="checkbox"
-          checked={isChecked}
-          onChange={toggleCheckbox}
-          className="hidden"
-        />
-        <span className="select-none">{label}</span>
-      </label>
-    </div>
+    <label className={getType(isChecked ? "onclicked" : "unclicked")}>
+      <input
+        type="checkbox"
+        checked={isChecked}
+        hidden
+        onChange={(e) => {
+          toggleCheckbox();
+          onChange(e);
+        }}
+        {...props}
+      />
+      {children}
+    </label>
   );
 };
 

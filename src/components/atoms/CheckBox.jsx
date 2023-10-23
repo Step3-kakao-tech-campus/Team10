@@ -8,7 +8,7 @@ const Checkbox = ({ checked, onChange, disabled, children }) => {
         className="mr-2"
         disabled={disabled}
         checked={checked}
-        onChange={({ target: { checked } }) => onChange(checked)}
+        onChange={onChange}
       />
       {children}
     </label>
