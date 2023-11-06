@@ -1,11 +1,29 @@
 import { useId, useState } from "react";
 
-const Toggle = () => {
-  const [checked, setChecked] = useState(false);
+const Toggle = ({ bay_id, status, mutation }) => {
+  // status가 1이면 true, 이외 값은 false
+  const [checked, setChecked] = useState(status === 1);
   const id = useId();
 
   const handleChecked = (e) => {
-    setChecked(e.target.checked);
+    switch (e.target.checked) {
+      case true:
+        if (window.confirm("베이를 활성화 하시겠습니까?")) {
+          setChecked(e.target.checked);
+          mutation.mutate({ bay_id, status: 1 });
+        }
+        break;
+      case false:
+        if (
+          window.confirm(
+            "베이를 비활성화 하시겠습니까?\n비활성화 되어있는 동안 사용자 앱에서 베이가 표시되지 않습니다."
+          )
+        ) {
+          setChecked(e.target.checked);
+          mutation.mutate({ bay_id, status: 0 });
+        }
+        break;
+    }
   };
 
   return (

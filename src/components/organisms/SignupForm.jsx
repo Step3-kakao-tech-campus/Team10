@@ -40,9 +40,9 @@ const SignupForm = () => {
   };
 
   const MESSAGES = {
-    nickname: {
-      required: "닉네임을 입력해주세요.",
-      pattern: "닉네임은 2자 이상 8자 이하, 영어 또는 한글로 입력해주세요.",
+    username: {
+      required: "이름을 입력해주세요.",
+      pattern: "이름은 8자 이상 45자 이하, 영어 또는 한글로 입력해주세요.",
     },
     email: {
       required: "이메일을 입력해주세요.",
@@ -83,8 +83,8 @@ const SignupForm = () => {
         <div className="flex gap-4 w-96">
           <TextInput
             type="text"
-            placeholder="닉네임"
-            {...register("nickname", {
+            placeholder="이름"
+            {...register("username", {
               required: MESSAGES.nickname.required,
               pattern: {
                 value: PATTERNS.nickname,

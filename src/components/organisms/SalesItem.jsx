@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import Box from "../atoms/Box";
 import Image from "../atoms/Image";
 import ProfileIcon from "/profile.svg";
@@ -24,8 +25,16 @@ const SalesItem = ({
   startTime,
   endTime,
 }) => {
+  const startDayjs = dayjs(startTime);
+  const endDayjs = dayjs(endTime);
+
+  const startTimeString = startDayjs.format("YYYY-MM-DD HH:mm");
+  const endTimeString = endDayjs.format("YYYY-MM-DD HH:mm");
+
+  const difference = endDayjs.diff(startDayjs, "minute");
+
   return (
-    <Box className="grid w-auto gap-4 p-4">
+    <Box className="grid w-auto h-40 gap-4 p-4">
       <div className="text-xl text-gray-400">#{reservationId}</div>
       <div className="flex justify-between">
         <div className="text-xl">
@@ -41,7 +50,7 @@ const SalesItem = ({
           {totalPrice.toLocaleString()}원
         </div>
         <div className="text-xl">
-          {startTime} ~ {endTime}
+          {startTimeString} ~ {endTimeString} ({difference}분)
         </div>
       </div>
     </Box>

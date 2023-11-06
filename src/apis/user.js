@@ -1,11 +1,11 @@
 import { instance } from "./instance";
 
-export const login = (data) => {
+export const login = async (data) => {
   const { email, password } = data;
-  return instance.post("/login/owner", { email, password });
+  return instance.post("/api/owner/login", { email, password });
 };
 
-export const signup = (data) => {
-  const { nickname, email, password, tel } = data;
-  return instance.post("/join/owner", { nickname, email, password, tel });
+export const signup = async (data) => {
+  const { username, email, password, tel } = data;
+  return instance.post("/api/owner/join", { username, email, password, tel });
 };

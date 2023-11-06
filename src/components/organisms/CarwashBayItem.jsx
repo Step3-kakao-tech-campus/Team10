@@ -1,29 +1,21 @@
+import { useMutation } from "@tanstack/react-query";
 import TimeTable from "../atoms/TimeTable";
 import Toggle from "../atoms/Toggle";
+import { setBayStatus } from "../../apis/extras";
 
-const CarwashBayItem = ({ start_time, end_time, bay }) => {
+const CarwashBayItem = ({ optime, bay }) => {
+  const mutation = useMutation({
+    mutationFn: (data) => setBayStatus(data),
+  });
+
   return (
-    <div className="p-4 shadow-xl rounded-xl">
-      <div className="flex justify-between">
-        <div className="text-xl font-semibold">베이 {bay.bay_no}</div>
-        <div className="flex gap-4">
-          <Toggle />
-          <button
-            type="button"
-            onClick={(e) => {
-              e.preventDefault();
-            }}
-            className="box-content w-12 text-gray-500 border-2 border-gray-500 rounded-full ">
-            삭제
-          </button>
-        </div>
+    <div className="grid h-40 gap-4 p-4 shadow-xl rounded-xl">
+      <div className="flex items-center justify-between">
+        <div className="text-xl font-semibold">베이 {bay.bayNo}</div>
+        <Toggle bay_id={bay.bayId} status={bay.status} mutation={mutation} />
       </div>
 
-      <TimeTable
-        start_time={start_time}
-        end_time={end_time}
-        bookedTime={bay.bay_bookedTime}
-      />
+      <TimeTable optime={optime} bookedTime={bay.bayBookedTime} />
     </div>
   );
 };

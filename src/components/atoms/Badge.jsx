@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
-const Badge = ({ onChange, children, props }) => {
-  const [isChecked, setIsChecked] = useState(false);
+const Badge = ({ value, onChange, children, props }) => {
+  const [isChecked, setIsChecked] = useState(value);
 
   const getType = (type) => {
     const commonStyle =

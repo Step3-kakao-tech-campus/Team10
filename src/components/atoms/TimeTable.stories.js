@@ -16,8 +16,16 @@ export default {
 // More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
 export const openingHours = {
   args: {
-    start_time: "2023-10-16T00:00",
-    end_time: "2023-10-16T23:59",
+    optime: {
+      weekday: {
+        start: "09:00:00",
+        end: "18:00:00",
+      },
+      weekend: {
+        start: "10:00:00",
+        end: "17:00:00",
+      },
+    },
     bookedTime: [
       {
         start_time: "2023-10-15T23:00:00",

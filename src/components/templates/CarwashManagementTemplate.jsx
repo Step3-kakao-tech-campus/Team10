@@ -8,13 +8,15 @@ const CarwashManagementTemplate = () => {
     queryFn: getCarwashes,
   });
 
-  const response = data.data.response.carwash;
+  const carwash = data.data.response.carwash;
 
   return (
     <div className="grid gap-4">
-      {response.map((item) => (
-        <CarwashItem key={item.name} carwash={item} />
-      ))}
+      {carwash.length !== 0 ? (
+        carwash.map((item) => <CarwashItem key={item.name} carwash={item} />)
+      ) : (
+        <div>등록된 세차장이 없습니다. 먼저 입점신청 후 접속해주세요.</div>
+      )}
     </div>
   );
 };

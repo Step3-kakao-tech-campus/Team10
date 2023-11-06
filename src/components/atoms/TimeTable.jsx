@@ -8,14 +8,32 @@
  * - 운영시간이 하루를 넘어가는 경우: end_time에 하루를 더해서 인자로 넘깁니다.
  * - 운영시간이 하루를 넘어기지 않는 경우: start_time과 end_time을 그대로 인자로 넘깁니다.
  *
- * @param {string} start_time 운영 시작 시간 "yyyy-mm-ddThh-mm"
- * @param {string} end_time 운영 종료 시간 "yyyy-mm-ddThh-mm"
  * @param {Array} bookedTime 예약된 시간 배열 [ {start_time: "yyyy-mm-ddThh-mm", end_time: "yyyy-mm-ddThh-mm"} ]
  */
 
-const TimeTable = ({ start_time, end_time, bookedTime }) => {
-  const startTime = new Date(start_time);
-  const endTime = new Date(end_time);
+import dayjs from "dayjs";
+
+const TimeTable = ({ optime, bookedTime }) => {
+  const today = dayjs();
+
+  let start_time;
+  let end_time;
+
+  if (today.day() === 0 || today.day() === 6) {
+    start_time = optime.weekend.start;
+    end_time = optime.weekend.end;
+  } else {
+    start_time = optime.weekday.start;
+    end_time = optime.weekday.end;
+  }
+
+  console.log(start_time, end_time);
+
+  const startTime = new Date();
+  const endTime = new Date();
+
+  startTime.setHours(start_time.split(":")[0], start_time.split(":")[1]);
+  endTime.setHours(end_time.split(":")[0], end_time.split(":")[1]);
 
   let startHour = startTime.getHours();
   let startMinute = startTime.getMinutes();

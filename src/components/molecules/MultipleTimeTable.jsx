@@ -147,8 +147,8 @@ const MultipleTimeTable = ({ carwash }) => {
               {minuteLoop(
                 startMinute,
                 endMinute,
-                item.bay_bookedTime,
-                item.bay_no
+                item.bayBookedTime,
+                item.bayNo
               )}
             </tr>
           );

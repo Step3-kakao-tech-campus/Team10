@@ -4,16 +4,20 @@ import SalesIcon from "/DashboardItem/salesIcon.svg";
 import ReservationIcon from "/DashboardItem/reservationIcon.svg";
 import { getHome } from "../../apis/extras";
 import { useSuspenseQuery } from "@tanstack/react-query";
+import { useSelector } from "react-redux";
 
 const HomeTemplate = () => {
   const { data } = useSuspenseQuery({ queryKey: ["home"], queryFn: getHome });
+  const userName = useSelector((state) => state.auth.user);
 
   return (
     <div>
       {data && (
         <div className="grid gap-8">
           <section className="grid gap-4">
-            <h1 className="text-3xl font-bold">김춘식 사장님 안녕하세요!</h1>
+            <h1 className="text-3xl font-bold">
+              {userName} 사장님 안녕하세요!
+            </h1>
             <div className="flex gap-4">
               <DashboardItem
                 label="이번 달 전체 판매"
@@ -31,7 +35,7 @@ const HomeTemplate = () => {
           </section>
 
           <section className="grid gap-4">
-            <h2 className="text-2xl font-bold">김춘식 사장님의 매장</h2>
+            <h2 className="text-2xl font-bold">{userName} 사장님의 매장</h2>
             <div className="flex gap-4">
               {data.data.response.myStores.map((store) => (
                 <CarwashShortcutItem key={store.name} carwash={store} />
